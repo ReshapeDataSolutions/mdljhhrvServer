@@ -5,6 +5,7 @@
 
 
 
+
 #' Title 预览数据
 #'
 #' @param input 输入
@@ -17,11 +18,11 @@
 #'
 #' @examples viewserver()
 viewserver <- function(input, output, session, dms_token) {
-  var_file_export_baseInfo = tsui::var_file('uploadfile')
-  var_hr_sheet = tsui::var_ListChoose1('hr_sheet')
+  var_file_export_baseInfo = tsui::var_file('btn_hrv_voucher_uploadfile')
+  var_hr_sheet = tsui::var_ListChoose1('btn_hrv_voucher_sheet')
   
   shiny::observe({
-    shiny::observeEvent(input$view,
+    shiny::observeEvent(input$btn_hrv_voucher_view,
                         {
                           # 获取文件路径
                           file_name = var_file_export_baseInfo()
@@ -67,7 +68,7 @@ viewserver <- function(input, output, session, dms_token) {
                             salary_data_excel = tsdo::na_standard(salary_data_excel)
                             
                             #显示数据
-                            tsui::run_dataTable2(id = 'view_data', data = salary_data_excel)
+                            tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = salary_data_excel)
                             
                             
                           }
@@ -121,7 +122,7 @@ viewserver <- function(input, output, session, dms_token) {
                             socialsecurity_data_excel = tsdo::na_standard(socialsecurity_data_excel)
                             
                             #显示数据
-                            tsui::run_dataTable2(id = 'view_data', data = socialsecurity_data_excel)
+                            tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = socialsecurity_data_excel)
                             
                             
                           }
@@ -134,7 +135,7 @@ viewserver <- function(input, output, session, dms_token) {
                             redetail = tsdo::na_standard(redetail)
                             
                             #显示数据
-                            tsui::run_dataTable2(id = 'view_data', data = redetail)
+                            tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = redetail)
                             print(redetail)
                             
                           }
@@ -160,10 +161,10 @@ viewserver <- function(input, output, session, dms_token) {
 #'
 #' @examples uploadserver()
 uploadserver <- function(input, output, session, dms_token) {
-  var_file_export_baseInfo = tsui::var_file('uploadfile')
-  var_hr_sheet = tsui::var_ListChoose1('hr_sheet')
+  var_file_export_baseInfo = tsui::var_file('btn_hrv_voucher_uploadfile')
+  var_hr_sheet = tsui::var_ListChoose1('btn_hrv_voucher_sheet')
   
-  shiny::observeEvent(input$btn_upload,
+  shiny::observeEvent(input$btn_hrv_voucher_upload,
                       {
                         dsql = 'truncate table rds_hrv_src_ds_salary_input'
                         tsda::sql_update2(token = dms_token, sql_str = dsql)
@@ -255,7 +256,7 @@ uploadserver <- function(input, output, session, dms_token) {
                         
                         sql = 'insert into rds_hrv_src_ds_salary_history select * from rds_hrv_src_ds_salary  where FNumber in (select FNumber from rds_hrv_src_ds_salary_input)'
                         tsda::sql_insert2(token = dms_token, sql_str = sql)
-                          
+                        
                         dsql = 'delete a from rds_hrv_src_ds_salary  a inner join rds_hrv_src_ds_salary_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
                         tsda::sql_update2(token = dms_token, sql_str = dsql)
                         
@@ -389,7 +390,7 @@ uploadserver <- function(input, output, session, dms_token) {
                         redetail = tsdo::na_standard(redetail)
                         
                         # 将非研发金额空值替换为0
-                        redetail$非研发工资成本        = tsdo::na_replace(redetail$非研发工资成本, 0)
+                        redetail$非研发工资成本         = tsdo::na_replace(redetail$非研发工资成本, 0)
                         
                         # 非研发工时表字段
                         col_nonrd = c(
@@ -407,7 +408,7 @@ uploadserver <- function(input, output, session, dms_token) {
                         )
                         
                         # 筛选非研发金额不为0的数据
-                        nonrddetail = redetail[redetail$非研发工资成本         != 0, col_nonrd]
+                        nonrddetail = redetail[redetail$非研发工资成本          != 0, col_nonrd]
                         
                         # 更名为数据库字段名
                         names(nonrddetail) = c(
@@ -444,7 +445,7 @@ uploadserver <- function(input, output, session, dms_token) {
                           
                           isql = 'insert into rds_hrv_src_ds_nonrddetail  select * from rds_hrv_src_ds_nonrddetail_input'
                           tsda::sql_insert2(token = dms_token, sql_str = isql)
-
+                          
                           # dsql = 'truncate table rds_hrv_src_ds_nonrddetail_input'
                           # tsda::sql_update2(token = dms_token, sql_str = dsql)
                         }
@@ -499,7 +500,7 @@ uploadserver <- function(input, output, session, dms_token) {
                         # rddetail$研发金额   = tsdo::na_replace(rddetail$研发金额, 0)
                         
                         # 筛选研发金额不为0数据
-                        rddetail = rddetail[rddetail$研发金额         != 0, col_rd]
+                        rddetail = rddetail[rddetail$研发金额          != 0, col_rd]
                         
                         # 替换为数据库字段
                         names(rddetail) = c(
@@ -787,7 +788,7 @@ reuploadserver <- function(input, output, session, dms_token) {
                         redetail = tsdo::na_standard(redetail)
                         
                         # 将非研发金额空值替换为0
-                        redetail$非研发工资成本        = tsdo::na_replace(redetail$非研发工资成本, 0)
+                        redetail$非研发工资成本         = tsdo::na_replace(redetail$非研发工资成本, 0)
                         
                         # 非研发工时表字段
                         col_nonrd = c(
@@ -805,7 +806,7 @@ reuploadserver <- function(input, output, session, dms_token) {
                         )
                         
                         # 筛选非研发金额不为0的数据
-                        nonrddetail = redetail[redetail$非研发工资成本         != 0, col_nonrd]
+                        nonrddetail = redetail[redetail$非研发工资成本          != 0, col_nonrd]
                         
                         # 更名为数据库字段名
                         names(nonrddetail) = c(
@@ -902,7 +903,7 @@ reuploadserver <- function(input, output, session, dms_token) {
                         # rddetail$研发金额   = tsdo::na_replace(rddetail$研发金额, 0)
                         
                         # 筛选研发金额不为0数据
-                        rddetail = rddetail[rddetail$研发金额         != 0, col_rd]
+                        rddetail = rddetail[rddetail$研发金额          != 0, col_rd]
                         
                         # 替换为数据库字段
                         names(rddetail) = c(
@@ -963,17 +964,15 @@ reuploadserver <- function(input, output, session, dms_token) {
 #'
 #' @examples voucherserver()
 voucherserver <- function(input, output, session, dms_token) {
-  var_environment = tsui::var_ListChoose1('environment')
-  var_hr_year = tsui::var_numeric('hr_year')
-  var_hr_month = tsui::var_numeric('hr_month')
+  var_environment = tsui::var_ListChoose1('btn_hrv_voucher_environment')
+  var_hr_year = tsui::var_numeric('btn_hrv_voucher_year')
+  var_hr_month = tsui::var_numeric('btn_hrv_voucher_month')
   
-  shiny::observeEvent(input$outputvoucher,
+  shiny::observeEvent(input$btn_hrv_voucher_outputvoucher,
                       {
                         var_environment = var_environment()
                         var_hr_year = var_hr_year()
                         var_hr_month = var_hr_month()
-                        # print(var_environment)
-                        # print(class(var_environment))
                         
                         jhhrvvoucherpkg::outputvourchermain(dms_token, var_hr_year, var_hr_month, var_environment)
                         tsui::pop_notice('凭证生成成功')
@@ -986,7 +985,6 @@ voucherserver <- function(input, output, session, dms_token) {
                         )
                         print(sql1)
                         data1 = tsda::sql_select2(dms_token, sql1)
-                        # tsui::run_download_xlsx(id = 'btn_Asone_download1',data = data1 ,filename = '成功数据.xlsx')
                         
                         
                         sql2 = sprintf(
@@ -1001,7 +999,7 @@ voucherserver <- function(input, output, session, dms_token) {
                         # print(res)
                         
                         
-                        tsui::run_download_xlsx(id = 'btn_res_download',
+                        tsui::run_download_xlsx(id = 'btn_hrv_voucher_download',
                                                 data = res ,
                                                 filename = '凭证处理日志.xlsx')
                         
@@ -1079,17 +1077,56 @@ revoucherserver <- function(input, output, session, dms_token) {
 #'
 #' @examples viewserver()
 viewvoucher <- function(input, output, session, dms_token) {
-
-    
   shiny::observe({
-    shiny::observeEvent(input$view_voucher,
-    {sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))'
-    
-    
-    data = tsda::sql_select2(token = dms_token, sql = sql)
-    #显示数据
-    tsui::run_dataTable2(id = 'view_data', data = data)
-    })
+    shiny::observeEvent(input$btn_hrv_voucher_view_voucher,
+                        {
+                          sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+                          FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,FLexitemProperty,
+                          FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,allamountBorrow,allamountLoan,FSettleMethod,
+                          FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))'
+                          
+                          
+                          data = tsda::sql_select2(token = dms_token, sql = sql)
+                          names(data) = c(
+                            '日期',
+                            '会计年度',
+                            '会计期间',
+                            '单据编号 ',
+                            '行号',
+                            '凭证模板号',
+                            '凭证模板名称',
+                            '费用申报组织',
+                            '费用承担组织',
+                            '业务类型',
+                            '摘要',
+                            '账簿',
+                            '往来单位名称',
+                            '往来单位编码',
+                            '供应商',
+                            '供应商编码',
+                            '账户名称',
+                            '高新部门',
+                            '科目编码',
+                            '科目全名',
+                            '核算维度',
+                            '部门代码 ',
+                            '部门名称',
+                            'RD-项目（人工费用表格）',
+                            '系统项目名称',
+                            '责任中心',
+                            '重分类',
+                            '银行账号',
+                            '借方金额',
+                            '贷方金额',
+                            '结算方式',
+                            '结算号 ',
+                            '责任中心名称',
+                            '重分类名称',
+                            'std新行号'
+                          )
+                          #显示数据
+                          tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = data)
+                        })
     
     
     
@@ -1114,8 +1151,44 @@ downloadvoucher <- function(input, output, session, dms_token) {
   sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))'
   
   data = tsda::sql_select2(token = dms_token, sql = sql)
-  
-  tsui::run_download_xlsx(id = 'download_voucher',
+  names(data) = c(
+    '日期',
+    '会计年度',
+    '会计期间',
+    '单据编号 ',
+    '行号',
+    '凭证模板号',
+    '凭证模板名称',
+    '费用申报组织',
+    '费用承担组织',
+    '业务类型',
+    '摘要',
+    '账簿',
+    '往来单位名称',
+    '往来单位编码',
+    '供应商',
+    '供应商编码',
+    '账户名称',
+    '高新部门',
+    '科目编码',
+    '科目全名',
+    '核算维度',
+    '部门代码 ',
+    '部门名称',
+    'RD-项目（人工费用表格）',
+    '系统项目名称',
+    '责任中心',
+    '重分类',
+    '银行账号',
+    '借方金额',
+    '贷方金额',
+    '结算方式',
+    '结算号 ',
+    '责任中心名称',
+    '重分类名称',
+    'std新行号'
+  )
+  tsui::run_download_xlsx(id = 'btn_hrv_voucherview_download',
                           data = data ,
                           filename = '凭证预览下载.xlsx')
   
@@ -1135,8 +1208,8 @@ downloadvoucher <- function(input, output, session, dms_token) {
 #'
 #' @examples downloadserver()
 downloadserver <- function(input, output, session, dms_token) {
-  var_hr_year = tsui::var_numeric('hr_year')
-  var_hr_month = tsui::var_numeric('hr_month')
+  var_hr_year = tsui::var_numeric('btn_hrv_voucher_year')
+  var_hr_month = tsui::var_numeric('btn_hrv_voucher_month')
   
   
   # var_hr_year = var_hr_year()
@@ -1154,6 +1227,45 @@ downloadserver <- function(input, output, session, dms_token) {
   
   print(sql1)
   data1 = tsda::sql_select2(dms_token, sql1)
+  names(data1) = c(
+    '日期',
+    '会计年度',
+    '会计期间',
+    '单据编号',
+    '行号',
+    '凭证模板号',
+    '凭证模板名称',
+    '费用申报组织',
+    '费用承担组织',
+    '业务类型',
+    '摘要',
+    '账簿',
+    '往来单位名称',
+    '往来单位编码',
+    '供应商',
+    '供应商编码',
+    '账户名称',
+    '高新部门',
+    '科目编码',
+    '科目全名',
+    '核算维度',
+    '部门代码 ',
+    '部门名称',
+    'RD-项目（人工费用表格）',
+    '系统项目名称',
+    '责任中心',
+    '重分类',
+    '银行账号',
+    '借方金额',
+    '贷方金额',
+    '结算方式',
+    '结算号 ',
+    '详细信息',
+    '状态',
+    '责任中心名称',
+    '重分类名称',
+    'std新行号'
+  )
   # tsui::run_download_xlsx(id = 'btn_Asone_download1',data = data1 ,filename = '成功数据.xlsx')
   
   
@@ -1168,12 +1280,50 @@ downloadserver <- function(input, output, session, dms_token) {
   
   print(sql2)
   data2 = tsda::sql_select2(dms_token, sql2)
-  
+  names(data2) = c(
+    '日期',
+    '会计年度',
+    '会计期间',
+    '单据编号 ',
+    '行号',
+    '凭证模板号',
+    '凭证模板名称',
+    '费用申报组织',
+    '费用承担组织',
+    '业务类型',
+    '摘要',
+    '账簿',
+    '往来单位名称',
+    '往来单位编码',
+    '供应商',
+    '供应商编码',
+    '账户名称',
+    '高新部门',
+    '科目编码',
+    '科目全名',
+    '核算维度',
+    '部门代码 ',
+    '部门名称',
+    'RD-项目（人工费用表格）',
+    '系统项目名称',
+    '责任中心',
+    '重分类',
+    '银行账号',
+    '借方金额',
+    '贷方金额',
+    '结算方式',
+    '结算号 ',
+    '详细信息',
+    '状态',
+    '责任中心名称',
+    '重分类名称',
+    'std新行号'
+  )
   res = list(`成功数据` = data1, `异常数据` = data2)
   # print(res)
   
   
-  tsui::run_download_xlsx(id = 'btn_res_download',
+  tsui::run_download_xlsx(id = 'btn_hrv_voucher_download',
                           data = res ,
                           filename = '凭证处理日志.xlsx')
   
