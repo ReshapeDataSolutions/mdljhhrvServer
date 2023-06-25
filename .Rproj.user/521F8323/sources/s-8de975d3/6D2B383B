@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1687228722642.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "573890762",
+    "id" : "6D2B383B",
+    "lastKnownWriteTime" : 1686225267,
+    "last_content_update" : 1686225267,
+    "path" : "~/app/zzy/jhhrv/mdljhhrvCom/mdlHrvCom_ui.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

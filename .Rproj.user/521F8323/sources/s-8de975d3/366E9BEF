@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1686223792238.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "1022|64|1065|0|\n1080|60|1098|0|\n",
+    "hash" : "0",
+    "id" : "366E9BEF",
+    "lastKnownWriteTime" : 1687655888,
+    "last_content_update" : 1687655888379,
+    "path" : "~/app/zzy/jhhrv/mdljhhrvServer/R/jhhrvserver.R",
+    "project_path" : "R/jhhrvserver.R",
+    "properties" : {
+        "cursorPosition" : "1117,25",
+        "scrollLine" : "1103"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
