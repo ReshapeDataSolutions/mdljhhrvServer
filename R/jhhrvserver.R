@@ -132,6 +132,19 @@ viewserver <- function(input, output, session, dms_token) {
                             redetail <-
                               readxl::read_excel(file_name, sheet = '工时')
                             
+                            ncols = ncol(redetail)
+                            c1 = c("numeric", 
+                                   "text", "numeric", "numeric", "text", 
+                                   "text", "text", "text", "text", "numeric", 
+                                   "numeric", "numeric", "text")
+                            
+                            c2<-rep("numeric",times= (ncols - 13))
+                            col_types = c(c1, c2)
+                            
+                            redetail <- readxl::read_excel(file_name, 
+                                                 sheet = "工时", col_types = col_types)
+                            
+                            
                             redetail = as.data.frame(redetail)
                             redetail = tsdo::na_standard(redetail)
                             
@@ -387,11 +400,24 @@ uploadserver <- function(input, output, session, dms_token) {
                         #读取文件
                         redetail <-
                           readxl::read_excel(file_name, sheet = '工时')
+                        
+                        ncols = ncol(redetail)
+                        c1 = c("numeric", 
+                               "text", "numeric", "numeric", "text", 
+                               "text", "text", "text", "text", "numeric", 
+                               "numeric", "numeric", "text")
+                        
+                        c2<-rep("numeric",times= (ncols - 13))
+                        col_types = c(c1, c2)
+                        
+                        redetail <- readxl::read_excel(file_name, 
+                                               sheet = "工时", col_types = col_types)
+                        
                         redetail = as.data.frame(redetail)
                         redetail = tsdo::na_standard(redetail)
                         
                         # 将非研发金额空值替换为0
-                        redetail$非研发工资成本          = tsdo::na_replace(redetail$非研发工资成本, 0)
+                        # redetail$非研发工资成本          = tsdo::na_replace(redetail$非研发工资成本, 0)
                         
                         # 非研发工时表字段
                         col_nonrd = c(
@@ -789,7 +815,7 @@ reuploadserver <- function(input, output, session, dms_token) {
                         redetail = tsdo::na_standard(redetail)
                         
                         # 将非研发金额空值替换为0
-                        redetail$非研发工资成本          = tsdo::na_replace(redetail$非研发工资成本, 0)
+                        # redetail$非研发工资成本          = tsdo::na_replace(redetail$非研发工资成本, 0)
                         
                         # 非研发工时表字段
                         col_nonrd = c(
