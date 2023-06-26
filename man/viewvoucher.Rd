@@ -2,7 +2,7 @@
 % Please edit documentation in R/jhhrvserver.R
 \name{viewvoucher}
 \alias{viewvoucher}
-\title{Title 生成预览}
+\title{Title 重新生成凭证}
 \usage{
 viewvoucher(input, output, session, dms_token)
 }
@@ -17,10 +17,15 @@ viewvoucher(input, output, session, dms_token)
 }
 \value{
 返回值
+
+返回值
 }
 \description{
-Title 生成预览
+Title 重新生成凭证
 }
 \examples{
+revoucherserver()
+Title 生成预览
+
 viewserver()
 }

@@ -6,6 +6,7 @@
 
 
 
+
 #' Title 预览数据
 #'
 #' @param input 输入
@@ -390,7 +391,7 @@ uploadserver <- function(input, output, session, dms_token) {
                         redetail = tsdo::na_standard(redetail)
                         
                         # 将非研发金额空值替换为0
-                        redetail$非研发工资成本         = tsdo::na_replace(redetail$非研发工资成本, 0)
+                        redetail$非研发工资成本          = tsdo::na_replace(redetail$非研发工资成本, 0)
                         
                         # 非研发工时表字段
                         col_nonrd = c(
@@ -408,7 +409,7 @@ uploadserver <- function(input, output, session, dms_token) {
                         )
                         
                         # 筛选非研发金额不为0的数据
-                        nonrddetail = redetail[redetail$非研发工资成本          != 0, col_nonrd]
+                        nonrddetail = redetail[redetail$非研发工资成本           != 0, col_nonrd]
                         
                         # 更名为数据库字段名
                         names(nonrddetail) = c(
@@ -500,7 +501,7 @@ uploadserver <- function(input, output, session, dms_token) {
                         # rddetail$研发金额   = tsdo::na_replace(rddetail$研发金额, 0)
                         
                         # 筛选研发金额不为0数据
-                        rddetail = rddetail[rddetail$研发金额          != 0, col_rd]
+                        rddetail = rddetail[rddetail$研发金额           != 0, col_rd]
                         
                         # 替换为数据库字段
                         names(rddetail) = c(
@@ -788,7 +789,7 @@ reuploadserver <- function(input, output, session, dms_token) {
                         redetail = tsdo::na_standard(redetail)
                         
                         # 将非研发金额空值替换为0
-                        redetail$非研发工资成本         = tsdo::na_replace(redetail$非研发工资成本, 0)
+                        redetail$非研发工资成本          = tsdo::na_replace(redetail$非研发工资成本, 0)
                         
                         # 非研发工时表字段
                         col_nonrd = c(
@@ -806,7 +807,7 @@ reuploadserver <- function(input, output, session, dms_token) {
                         )
                         
                         # 筛选非研发金额不为0的数据
-                        nonrddetail = redetail[redetail$非研发工资成本          != 0, col_nonrd]
+                        nonrddetail = redetail[redetail$非研发工资成本           != 0, col_nonrd]
                         
                         # 更名为数据库字段名
                         names(nonrddetail) = c(
@@ -903,7 +904,7 @@ reuploadserver <- function(input, output, session, dms_token) {
                         # rddetail$研发金额   = tsdo::na_replace(rddetail$研发金额, 0)
                         
                         # 筛选研发金额不为0数据
-                        rddetail = rddetail[rddetail$研发金额          != 0, col_rd]
+                        rddetail = rddetail[rddetail$研发金额           != 0, col_rd]
                         
                         # 替换为数据库字段
                         names(rddetail) = c(
@@ -1018,50 +1019,50 @@ voucherserver <- function(input, output, session, dms_token) {
 #' @export
 #'
 #' @examples revoucherserver()
-revoucherserver <- function(input, output, session, dms_token) {
-  var_environment = tsui::var_ListChoose1('environment')
-  var_hr_year = tsui::var_numeric('hr_year')
-  var_hr_month = tsui::var_numeric('hr_month')
-  
-  shiny::observeEvent(input$outputvoucher2,
-                      {
-                        var_environment = var_environment()
-                        var_hr_year = var_hr_year()
-                        var_hr_month = var_hr_month()
-                        print(var_hr_year)
-                        print(class(var_hr_year))
-                        
-                        jhhrvvoucherpkg::reoutputvourchermain(dms_token, var_hr_year, var_hr_month, var_environment)
-                        tsui::pop_notice('凭证重新生成成功')
-                        
-                        sql1 = sprintf(
-                          "select * from rds_hrv_ods_ds_middleTable where fisdo=1 and fyear='%d.0' and fmonth='%d.0'",
-                          var_hr_year,
-                          var_hr_month
-                        )
-                        print(sql1)
-                        data1 = tsda::sql_select2(dms_token, sql1)
-                        # tsui::run_download_xlsx(id = 'btn_Asone_download1',data = data1 ,filename = '成功数据.xlsx')
-                        
-                        
-                        sql2 = sprintf(
-                          "select * from rds_hrv_ods_ds_middleTable where fisdo=2 and fyear='%d.0' and fmonth='%d.0'",
-                          var_hr_year,
-                          var_hr_month
-                        )
-                        print(sql2)
-                        data2 = tsda::sql_select2(dms_token, sql2)
-                        
-                        res = list(`成功数据` = data1, `异常数据` = data2)
-                        # print(res)
-                        
-                        
-                        tsui::run_download_xlsx(id = 'btn_res_download',
-                                                data = res ,
-                                                filename = '凭证处理日志.xlsx')
-                        
-                      })
-}
+# revoucherserver <- function(input, output, session, dms_token) {
+#   var_environment = tsui::var_ListChoose1('environment')
+#   var_hr_year = tsui::var_numeric('hr_year')
+#   var_hr_month = tsui::var_numeric('hr_month')
+#
+#   shiny::observeEvent(input$outputvoucher2,
+#                       {
+#                         var_environment = var_environment()
+#                         var_hr_year = var_hr_year()
+#                         var_hr_month = var_hr_month()
+#                         print(var_hr_year)
+#                         print(class(var_hr_year))
+#
+#                         jhhrvvoucherpkg::reoutputvourchermain(dms_token, var_hr_year, var_hr_month, var_environment)
+#                         tsui::pop_notice('凭证重新生成成功')
+#
+#                         sql1 = sprintf(
+#                           "select * from rds_hrv_ods_ds_middleTable where fisdo=1 and fyear='%d.0' and fmonth='%d.0'",
+#                           var_hr_year,
+#                           var_hr_month
+#                         )
+#                         print(sql1)
+#                         data1 = tsda::sql_select2(dms_token, sql1)
+#                         # tsui::run_download_xlsx(id = 'btn_Asone_download1',data = data1 ,filename = '成功数据.xlsx')
+#
+#
+#                         sql2 = sprintf(
+#                           "select * from rds_hrv_ods_ds_middleTable where fisdo=2 and fyear='%d.0' and fmonth='%d.0'",
+#                           var_hr_year,
+#                           var_hr_month
+#                         )
+#                         print(sql2)
+#                         data2 = tsda::sql_select2(dms_token, sql2)
+#
+#                         res = list(`成功数据` = data1, `异常数据` = data2)
+#                         # print(res)
+#
+#
+#                         tsui::run_download_xlsx(id = 'btn_res_download',
+#                                                 data = res ,
+#                                                 filename = '凭证处理日志.xlsx')
+#
+#                       })
+# }
 
 
 
@@ -1077,13 +1078,28 @@ revoucherserver <- function(input, output, session, dms_token) {
 #'
 #' @examples viewserver()
 viewvoucher <- function(input, output, session, dms_token) {
+  var_environment = tsui::var_ListChoose1('btn_hrv_voucher_environment')
+  var_hr_year = tsui::var_numeric('btn_hrv_voucher_year')
+  var_hr_month = tsui::var_numeric('btn_hrv_voucher_month')
   shiny::observe({
     shiny::observeEvent(input$btn_hrv_voucher_view_voucher,
                         {
-                          sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
-                          FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,FLexitemProperty,
-                          FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,allamountBorrow,allamountLoan,FSettleMethod,
-                          FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))'
+                          var_environment = var_environment()
+                          var_hr_year = var_hr_year()
+                          var_hr_month = var_hr_month()
+                          
+                          jhhrvvoucherpkg::middlevourchermain(dms_token, var_hr_year, var_hr_month, var_environment)
+                          
+                          sql = sprintf(
+                            "select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+  FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
+  FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
+  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
+  from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))
+  and fyear='%d.0' and fmonth='%d.0'",
+                            var_hr_year,
+                            var_hr_month
+                          )
                           
                           
                           data = tsda::sql_select2(token = dms_token, sql = sql)
@@ -1122,7 +1138,9 @@ viewvoucher <- function(input, output, session, dms_token) {
                             '结算号 ',
                             '责任中心名称',
                             '重分类名称',
-                            'std新行号'
+                            'std新行号',
+                            '状态',
+                            '详细信息'
                           )
                           #显示数据
                           tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = data)
@@ -1148,7 +1166,16 @@ viewvoucher <- function(input, output, session, dms_token) {
 #'
 #' @examples downloadserver()
 downloadvoucher <- function(input, output, session, dms_token) {
-  sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))'
+  var_hr_year = tsui::var_numeric('btn_hrv_voucher_year')
+  var_hr_month = tsui::var_numeric('btn_hrv_voucher_month')
+
+  
+  sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+  FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
+  FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
+  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
+  from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))'
+
   
   data = tsda::sql_select2(token = dms_token, sql = sql)
   names(data) = c(
@@ -1186,7 +1213,9 @@ downloadvoucher <- function(input, output, session, dms_token) {
     '结算号 ',
     '责任中心名称',
     '重分类名称',
-    'std新行号'
+    'std新行号',
+    '状态',
+    '详细信息'
   )
   tsui::run_download_xlsx(id = 'btn_hrv_voucherview_download',
                           data = data ,
@@ -1216,10 +1245,7 @@ downloadserver <- function(input, output, session, dms_token) {
   # var_hr_month = var_hr_month()
   
   # sql1 = sprintf(
-  #   "select * from rds_hrv_ods_ds_middleTable where fisdo=1 and fyear='%d.0' and fmonth='%d.0'",
-  #   var_hr_year,
-  #   var_hr_month
-  # )
+  #   "select * from rds_hrv_ods_ds_middleTable where fisdo=1 and fyear='%d.0' and fmonth='%d.0'",var_hr_year,var_hr_month)
   
   sql1 = 'select * from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION
                                                                                           (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=1'
