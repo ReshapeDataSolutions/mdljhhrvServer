@@ -265,12 +265,17 @@ uploadserver <- function(input, output, session, dms_token) {
                         dsql = 'delete a from rds_hrv_src_ds_salary  a inner join rds_hrv_src_ds_salary_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
                         tsda::sql_update2(token = dms_token, sql_str = dsql)
                         
+                        dsql = 'delete a from rds_hrv_ods_ds_salary  a inner join rds_hrv_src_ds_salary_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
+                        tsda::sql_update2(token = dms_token, sql_str = dsql)
+                        
+                        dsql = 'delete a from rds_hrv_std_ds_salary  a inner join rds_hrv_src_ds_salary_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
+                        tsda::sql_update2(token = dms_token, sql_str = dsql)
+                        
                         isql = 'insert into rds_hrv_src_ds_salary  select * from rds_hrv_src_ds_salary_input'
                         tsda::sql_insert2(token = dms_token, sql_str = isql)
                         
                         # dsql = 'truncate table rds_hrv_src_ds_salary_input'
                         # tsda::sql_update2(token = dms_token, sql_str = dsql)
-                        
                         
                         
                         socialsecurity_data_excel <-
@@ -380,6 +385,12 @@ uploadserver <- function(input, output, session, dms_token) {
                         dsql = 'delete a from rds_hrv_src_ds_socialsecurity  a inner join rds_hrv_src_ds_socialsecurity_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
                         tsda::sql_update2(token = dms_token, sql_str = dsql)
                         
+                        dsql = 'delete a from rds_hrv_ods_ds_socialsecurity  a inner join rds_hrv_src_ds_socialsecurity_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
+                        tsda::sql_update2(token = dms_token, sql_str = dsql)
+
+                        dsql = 'delete a from rds_hrv_std_ds_socialsecurity  a inner join rds_hrv_src_ds_socialsecurity_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
+                        tsda::sql_update2(token = dms_token, sql_str = dsql)
+                        
                         isql = 'insert into rds_hrv_src_ds_socialsecurity  select * from rds_hrv_src_ds_socialsecurity_input'
                         tsda::sql_insert2(token = dms_token, sql_str = isql)
                         
@@ -459,6 +470,9 @@ uploadserver <- function(input, output, session, dms_token) {
                           tsda::sql_insert2(token = dms_token, sql_str = sql)
                           
                           dsql = 'delete a from rds_hrv_src_ds_nonrddetail  a inner join rds_hrv_src_ds_nonrddetail_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
+                          tsda::sql_update2(token = dms_token, sql_str = dsql)
+                          
+                          dsql = 'delete a from rds_hrv_ods_ds_nonrddetail  a inner join rds_hrv_src_ds_nonrddetail_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
                           tsda::sql_update2(token = dms_token, sql_str = dsql)
                           
                           isql = 'insert into rds_hrv_src_ds_nonrddetail  select * from rds_hrv_src_ds_nonrddetail_input'
@@ -550,6 +564,9 @@ uploadserver <- function(input, output, session, dms_token) {
                         tsda::sql_insert2(token = dms_token, sql_str = sql)
                         
                         dsql = 'delete a from rds_hrv_src_ds_rddetail  a inner join rds_hrv_src_ds_rddetail_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
+                        tsda::sql_update2(token = dms_token, sql_str = dsql)
+                        
+                        dsql = 'delete a from rds_hrv_ods_ds_rddetail  a inner join rds_hrv_src_ds_rddetail_input b On a.FNumber=b.FNumber and a.FYear =b.FYear and a.FMonth =b.FMonth'
                         tsda::sql_update2(token = dms_token, sql_str = dsql)
                         
                         isql = 'insert into rds_hrv_src_ds_rddetail  select * from rds_hrv_src_ds_rddetail_input'
