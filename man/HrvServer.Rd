@@ -2,7 +2,7 @@
 % Please edit documentation in R/jhhrvserver.R
 \name{HrvServer}
 \alias{HrvServer}
-\title{Title 后台处理总函数}
+\title{Title 预览下载}
 \usage{
 HrvServer(input, output, session, dms_token)
 }
@@ -17,10 +17,20 @@ HrvServer(input, output, session, dms_token)
 }
 \value{
 返回值
+
+返回值
+
+返回值
 }
 \description{
-Title 后台处理总函数
+Title 预览下载
 }
 \examples{
+downloadserver()
+Title 下载日志
+
+downloadserver()
+Title 后台处理总函数
+
 HrvServer()
 }

@@ -1021,6 +1021,45 @@ voucherserver <- function(input, output, session, dms_token) {
                         print(sql1)
                         data1 = tsda::sql_select2(dms_token, sql1)
                         
+                        names(data1) = c(
+                          '日期',
+                          '会计年度',
+                          '会计期间',
+                          '单据编号',
+                          '行号',
+                          '凭证模板号',
+                          '凭证模板名称',
+                          '费用申报组织',
+                          '费用承担组织',
+                          '业务类型',
+                          '摘要',
+                          '账簿',
+                          '往来单位名称',
+                          '往来单位编码',
+                          '供应商',
+                          '供应商编码',
+                          '账户名称',
+                          '高新部门',
+                          '科目编码',
+                          '科目全名',
+                          '核算维度',
+                          '部门代码 ',
+                          '部门名称',
+                          'RD-项目（人工费用表格）',
+                          '系统项目名称',
+                          '责任中心',
+                          '重分类',
+                          '银行账号',
+                          '借方金额',
+                          '贷方金额',
+                          '结算方式',
+                          '结算号 ',
+                          '详细信息',
+                          '状态',
+                          '责任中心名称',
+                          '重分类名称',
+                          'std新行号'
+                        )
                         
                         sql2 = sprintf(
                           "select * from rds_hrv_ods_ds_middleTable where fisdo=2 and fyear='%d.0' and fmonth='%d.0'",
@@ -1029,6 +1068,46 @@ voucherserver <- function(input, output, session, dms_token) {
                         )
                         print(sql2)
                         data2 = tsda::sql_select2(dms_token, sql2)
+                        
+                        names(data2) = c(
+                          '日期',
+                          '会计年度',
+                          '会计期间',
+                          '单据编号',
+                          '行号',
+                          '凭证模板号',
+                          '凭证模板名称',
+                          '费用申报组织',
+                          '费用承担组织',
+                          '业务类型',
+                          '摘要',
+                          '账簿',
+                          '往来单位名称',
+                          '往来单位编码',
+                          '供应商',
+                          '供应商编码',
+                          '账户名称',
+                          '高新部门',
+                          '科目编码',
+                          '科目全名',
+                          '核算维度',
+                          '部门代码 ',
+                          '部门名称',
+                          'RD-项目（人工费用表格）',
+                          '系统项目名称',
+                          '责任中心',
+                          '重分类',
+                          '银行账号',
+                          '借方金额',
+                          '贷方金额',
+                          '结算方式',
+                          '结算号 ',
+                          '详细信息',
+                          '状态',
+                          '责任中心名称',
+                          '重分类名称',
+                          'std新行号'
+                        )
                         
                         res = list(`成功数据` = data1, `异常数据` = data2)
                         # print(res)
@@ -1180,6 +1259,129 @@ viewvoucher <- function(input, output, session, dms_token) {
                           )
                           #显示数据
                           tsui::run_dataTable2(id = 'btn_hrv_voucher_data', data = data)
+                          
+                          
+                          sql1 = sprintf(
+                            "select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+  FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
+  FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
+  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
+  from rds_hrv_src_ds_middleTable where fyear='%d.0' and fmonth='%d.0' and fisdo=0",
+                            var_hr_year,
+                            var_hr_month
+                          )
+                          
+                          data1 = tsda::sql_select2(token = dms_token, sql = sql1)
+                          names(data1) = c(
+                            '日期',
+                            '会计年度',
+                            '会计期间',
+                            '单据编号 ',
+                            '凭证模板行号',
+                            '凭证模板号',
+                            '凭证模板名称',
+                            '费用申报组织',
+                            '费用承担组织',
+                            '业务类型',
+                            '摘要',
+                            '账簿',
+                            '往来单位名称',
+                            '往来单位编码',
+                            '供应商',
+                            '供应商编码',
+                            '银行账号',
+                            '高新部门',
+                            '科目编码',
+                            '科目全名',
+                            '核算维度',
+                            '部门代码 ',
+                            '部门名称',
+                            'RD-项目（人工费用表格）',
+                            '系统项目名称',
+                            '责任中心',
+                            '重分类',
+                            '银行账号',
+                            '借方金额',
+                            '贷方金额',
+                            '结算方式',
+                            '结算号 ',
+                            '责任中心名称',
+                            '重分类名称',
+                            'src行号',
+                            'std新行号',
+                            '过程表行号',
+                            '状态',
+                            '详细信息'
+                          )
+                          # data1 = data1[,c(4,1,2,3,8,9,6,7,5,)]
+
+                          
+
+                          
+                          sql2 = sprintf(
+                            "select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+  FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
+  FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
+  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
+  from rds_hrv_src_ds_middleTable where fyear='%d.0' and fmonth='%d.0' and fisdo=2",
+                            var_hr_year,
+                            var_hr_month
+                          )
+                          
+                          data2 = tsda::sql_select2(token = dms_token, sql = sql2)
+                          names(data2) = c(
+                            '日期',
+                            '会计年度',
+                            '会计期间',
+                            '单据编号 ',
+                            '凭证模板行号',
+                            '凭证模板号',
+                            '凭证模板名称',
+                            '费用申报组织',
+                            '费用承担组织',
+                            '业务类型',
+                            '摘要',
+                            '账簿',
+                            '往来单位名称',
+                            '往来单位编码',
+                            '供应商',
+                            '供应商编码',
+                            '银行账号',
+                            '高新部门',
+                            '科目编码',
+                            '科目全名',
+                            '核算维度',
+                            '部门代码 ',
+                            '部门名称',
+                            'RD-项目（人工费用表格）',
+                            '系统项目名称',
+                            '责任中心',
+                            '重分类',
+                            '银行账号',
+                            '借方金额',
+                            '贷方金额',
+                            '结算方式',
+                            '结算号 ',
+                            '责任中心名称',
+                            '重分类名称',
+                            'src行号',
+                            'std新行号',
+                            '过程表行号',
+                            '状态',
+                            '详细信息'
+                          )
+                          
+                          # data2 = data2[,c(60:61,1:59,62:80)]
+
+                          
+                          res = list(`成功数据` = data1, `异常数据` = data2)
+                          
+                          tsui::run_download_xlsx(id = 'btn_hrv_voucherview_download',
+                                                  data = res ,
+                                                  filename = '凭证生成下载.xlsx')
+                          
+                          
+                          
                         })
     
     
@@ -1201,152 +1403,153 @@ viewvoucher <- function(input, output, session, dms_token) {
 #' @export
 #'
 #' @examples downloadserver()
-downloadvoucher <- function(input, output, session, dms_token) {
-  # var_environment = tsui::var_ListChoose1('btn_hrv_voucher_environment')
-  # var_hr_year = tsui::var_numeric('btn_hrv_voucher_year')
-  # var_hr_month = tsui::var_numeric('btn_hrv_voucher_month')
-
-  
-  sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
-  FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
-  FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
-  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
-  from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=2'
-
-  
-  # var_environment = var_environment()
-  # var_hr_year = var_hr_year()
-  # var_hr_month = var_hr_month()
-  
-  
-  # sql = sprintf(
-  #   "select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
-  # FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
-  # FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
-  # allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
-  # from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))
-  # and fyear='%d.0' and fmonth='%d.0' and fisdo=2 ",
-  #   var_hr_year,
-  #   var_hr_month
-  # )
-  
-  data = tsda::sql_select2(token = dms_token, sql = sql)
-  names(data) = c(
-    '日期',
-    '会计年度',
-    '会计期间',
-    '单据编号 ',
-    '凭证模板行号',
-    '凭证模板号',
-    '凭证模板名称',
-    '费用申报组织',
-    '费用承担组织',
-    '业务类型',
-    '摘要',
-    '账簿',
-    '往来单位名称',
-    '往来单位编码',
-    '供应商',
-    '供应商编码',
-    '银行账号',
-    '高新部门',
-    '科目编码',
-    '科目全名',
-    '核算维度',
-    '部门代码 ',
-    '部门名称',
-    'RD-项目（人工费用表格）',
-    '系统项目名称',
-    '责任中心',
-    '重分类',
-    '银行账号',
-    '借方金额',
-    '贷方金额',
-    '结算方式',
-    '结算号 ',
-    '责任中心名称',
-    '重分类名称',
-    'src行号',
-    'std新行号',
-    '过程表行号',
-    '状态',
-    '详细信息'
-  )
-  # data2 = data[,c(4,1,2,3,8,9,6,7,5,)]
-  data2 = data
-  
-  # sql = sprintf(
-  #   "select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
-  # FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
-  # FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
-  # allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
-  # from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))
-  # and fyear='%d.0' and fmonth='%d.0' and fisdo=0 ",
-  #   var_hr_year,
-  #   var_hr_month
-  # )
-  
-  sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
-  FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
-  FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
-  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
-  from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=0'
-  
-  
-  data = tsda::sql_select2(token = dms_token, sql = sql)
-  names(data) = c(
-    '日期',
-    '会计年度',
-    '会计期间',
-    '单据编号 ',
-    '凭证模板行号',
-    '凭证模板号',
-    '凭证模板名称',
-    '费用申报组织',
-    '费用承担组织',
-    '业务类型',
-    '摘要',
-    '账簿',
-    '往来单位名称',
-    '往来单位编码',
-    '供应商',
-    '供应商编码',
-    '银行账号',
-    '高新部门',
-    '科目编码',
-    '科目全名',
-    '核算维度',
-    '部门代码 ',
-    '部门名称',
-    'RD-项目（人工费用表格）',
-    '系统项目名称',
-    '责任中心',
-    '重分类',
-    '银行账号',
-    '借方金额',
-    '贷方金额',
-    '结算方式',
-    '结算号 ',
-    '责任中心名称',
-    '重分类名称',
-    'src行号',
-    'std新行号',
-    '过程表行号',
-    '状态',
-    '详细信息'
-  )
-  
-  # data1 = data[,c(60:61,1:59,62:80)]
-  data1 = data
-  
-  data = list(`成功数据` = data1, `异常数据` = data2)
-  
-  tsui::run_download_xlsx(id = 'btn_hrv_voucherview_download',
-                          data = data ,
-                          filename = '凭证生成下载.xlsx')
-  
-  
-}
+# downloadvoucher <- function(input, output, session, dms_token) {
+#   # var_environment = tsui::var_ListChoose1('btn_hrv_voucher_environment')
+#   var_hr_year = tsui::var_numeric('btn_hrv_voucher_year')
+#   var_hr_month = tsui::var_numeric('btn_hrv_voucher_month')
+# 
+#   
+#   
+#   
+#   # var_environment = var_environment()
+#   # var_hr_year = var_hr_year()
+#   # var_hr_month = var_hr_month()
+#   
+#   
+#   # sql = sprintf(
+#   #   "select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+#   # FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
+#   # FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
+#   # allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
+#   # from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))
+#   # and fyear='%d.0' and fmonth='%d.0' and fisdo=2 ",
+#   #   var_hr_year,
+#   #   var_hr_month
+#   # )
+#   
+#   sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+#   FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
+#   FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
+#   allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
+#   from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=2'
+#   
+#   data = tsda::sql_select2(token = dms_token, sql = sql)
+#   names(data) = c(
+#     '日期',
+#     '会计年度',
+#     '会计期间',
+#     '单据编号 ',
+#     '凭证模板行号',
+#     '凭证模板号',
+#     '凭证模板名称',
+#     '费用申报组织',
+#     '费用承担组织',
+#     '业务类型',
+#     '摘要',
+#     '账簿',
+#     '往来单位名称',
+#     '往来单位编码',
+#     '供应商',
+#     '供应商编码',
+#     '银行账号',
+#     '高新部门',
+#     '科目编码',
+#     '科目全名',
+#     '核算维度',
+#     '部门代码 ',
+#     '部门名称',
+#     'RD-项目（人工费用表格）',
+#     '系统项目名称',
+#     '责任中心',
+#     '重分类',
+#     '银行账号',
+#     '借方金额',
+#     '贷方金额',
+#     '结算方式',
+#     '结算号 ',
+#     '责任中心名称',
+#     '重分类名称',
+#     'src行号',
+#     'std新行号',
+#     '过程表行号',
+#     '状态',
+#     '详细信息'
+#   )
+#   # data2 = data[,c(4,1,2,3,8,9,6,7,5,)]
+#   data2 = data
+#   
+#   # sql = sprintf(
+#   #   "select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+#   # FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
+#   # FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
+#   # allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
+#   # from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))
+#   # and fyear='%d.0' and fmonth='%d.0' and fisdo=0 ",
+#   #   var_hr_year,
+#   #   var_hr_month
+#   # )
+#   
+#   sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
+#   FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
+#   FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
+#   allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
+#   from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=0'
+#   
+#   
+#   data = tsda::sql_select2(token = dms_token, sql = sql)
+#   names(data) = c(
+#     '日期',
+#     '会计年度',
+#     '会计期间',
+#     '单据编号 ',
+#     '凭证模板行号',
+#     '凭证模板号',
+#     '凭证模板名称',
+#     '费用申报组织',
+#     '费用承担组织',
+#     '业务类型',
+#     '摘要',
+#     '账簿',
+#     '往来单位名称',
+#     '往来单位编码',
+#     '供应商',
+#     '供应商编码',
+#     '银行账号',
+#     '高新部门',
+#     '科目编码',
+#     '科目全名',
+#     '核算维度',
+#     '部门代码 ',
+#     '部门名称',
+#     'RD-项目（人工费用表格）',
+#     '系统项目名称',
+#     '责任中心',
+#     '重分类',
+#     '银行账号',
+#     '借方金额',
+#     '贷方金额',
+#     '结算方式',
+#     '结算号 ',
+#     '责任中心名称',
+#     '重分类名称',
+#     'src行号',
+#     'std新行号',
+#     '过程表行号',
+#     '状态',
+#     '详细信息'
+#   )
+#   
+#   # data1 = data[,c(60:61,1:59,62:80)]
+#   data1 = data
+#   
+#   data = list(`成功数据` = data1, `异常数据` = data2)
+#   
+#   tsui::run_download_xlsx(id = 'btn_hrv_voucherview_download',
+#                           data = data ,
+#                           filename = '凭证生成下载.xlsx')
+#   
+#   
+# }
 
 
 #' Title 下载日志
@@ -1360,125 +1563,125 @@ downloadvoucher <- function(input, output, session, dms_token) {
 #' @export
 #'
 #' @examples downloadserver()
-downloadserver <- function(input, output, session, dms_token) {
-  var_hr_year = tsui::var_numeric('btn_hrv_voucher_year')
-  var_hr_month = tsui::var_numeric('btn_hrv_voucher_month')
-  
-  
-  # var_hr_year = var_hr_year()
-  # var_hr_month = var_hr_month()
-  
-  # sql1 = sprintf(
-  #   "select * from rds_hrv_ods_ds_middleTable where fisdo=1 and fyear='%d.0' and fmonth='%d.0'",var_hr_year,var_hr_month)
-  
-  sql1 = 'select * from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION
-                                                                                          (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=1'
-  
-  
-  print(sql1)
-  data1 = tsda::sql_select2(dms_token, sql1)
-  names(data1) = c(
-    '日期',
-    '会计年度',
-    '会计期间',
-    '单据编号',
-    '行号',
-    '凭证模板号',
-    '凭证模板名称',
-    '费用申报组织',
-    '费用承担组织',
-    '业务类型',
-    '摘要',
-    '账簿',
-    '往来单位名称',
-    '往来单位编码',
-    '供应商',
-    '供应商编码',
-    '账户名称',
-    '高新部门',
-    '科目编码',
-    '科目全名',
-    '核算维度',
-    '部门代码 ',
-    '部门名称',
-    'RD-项目（人工费用表格）',
-    '系统项目名称',
-    '责任中心',
-    '重分类',
-    '银行账号',
-    '借方金额',
-    '贷方金额',
-    '结算方式',
-    '结算号 ',
-    '详细信息',
-    '状态',
-    '责任中心名称',
-    '重分类名称',
-    'std新行号'
-  )
-  # tsui::run_download_xlsx(id = 'btn_Asone_download1',data = data1 ,filename = '成功数据.xlsx')
-  
-  
-  # sql2 = sprintf(
-  #   "select * from rds_hrv_ods_ds_middleTable where fisdo=2 and fyear='%d.0' and fmonth='%d.0'",
-  #   var_hr_year,
-  #   var_hr_month
-  # )
-  
-  sql2 = 'select * from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION
-                                                                                          (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=2'
-  
-  print(sql2)
-  data2 = tsda::sql_select2(dms_token, sql2)
-  names(data2) = c(
-    '日期',
-    '会计年度',
-    '会计期间',
-    '单据编号 ',
-    '行号',
-    '凭证模板号',
-    '凭证模板名称',
-    '费用申报组织',
-    '费用承担组织',
-    '业务类型',
-    '摘要',
-    '账簿',
-    '往来单位名称',
-    '往来单位编码',
-    '供应商',
-    '供应商编码',
-    '账户名称',
-    '高新部门',
-    '科目编码',
-    '科目全名',
-    '核算维度',
-    '部门代码 ',
-    '部门名称',
-    'RD-项目（人工费用表格）',
-    '系统项目名称',
-    '责任中心',
-    '重分类',
-    '银行账号',
-    '借方金额',
-    '贷方金额',
-    '结算方式',
-    '结算号 ',
-    '详细信息',
-    '状态',
-    '责任中心名称',
-    '重分类名称',
-    'std新行号'
-  )
-  res = list(`成功数据` = data1, `异常数据` = data2)
-  # print(res)
-  
-  
-  tsui::run_download_xlsx(id = 'btn_hrv_voucher_download',
-                          data = res ,
-                          filename = '凭证同步至ERP日志.xlsx')
-  
-  
-}
+# downloadserver <- function(input, output, session, dms_token) {
+#   var_hr_year = tsui::var_numeric('btn_hrv_voucher_year')
+#   var_hr_month = tsui::var_numeric('btn_hrv_voucher_month')
+#   
+#   
+#   # var_hr_year = var_hr_year()
+#   # var_hr_month = var_hr_month()
+#   
+#   # sql1 = sprintf(
+#   #   "select * from rds_hrv_ods_ds_middleTable where fisdo=1 and fyear='%d.0' and fmonth='%d.0'",var_hr_year,var_hr_month)
+#   
+#   sql1 = 'select * from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION
+#                                                                                           (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=1'
+#   
+#   
+#   print(sql1)
+#   data1 = tsda::sql_select2(dms_token, sql1)
+#   names(data1) = c(
+#     '日期',
+#     '会计年度',
+#     '会计期间',
+#     '单据编号',
+#     '行号',
+#     '凭证模板号',
+#     '凭证模板名称',
+#     '费用申报组织',
+#     '费用承担组织',
+#     '业务类型',
+#     '摘要',
+#     '账簿',
+#     '往来单位名称',
+#     '往来单位编码',
+#     '供应商',
+#     '供应商编码',
+#     '账户名称',
+#     '高新部门',
+#     '科目编码',
+#     '科目全名',
+#     '核算维度',
+#     '部门代码 ',
+#     '部门名称',
+#     'RD-项目（人工费用表格）',
+#     '系统项目名称',
+#     '责任中心',
+#     '重分类',
+#     '银行账号',
+#     '借方金额',
+#     '贷方金额',
+#     '结算方式',
+#     '结算号 ',
+#     '详细信息',
+#     '状态',
+#     '责任中心名称',
+#     '重分类名称',
+#     'std新行号'
+#   )
+#   # tsui::run_download_xlsx(id = 'btn_Asone_download1',data = data1 ,filename = '成功数据.xlsx')
+#   
+#   
+#   # sql2 = sprintf(
+#   #   "select * from rds_hrv_ods_ds_middleTable where fisdo=2 and fyear='%d.0' and fmonth='%d.0'",
+#   #   var_hr_year,
+#   #   var_hr_month
+#   # )
+#   
+#   sql2 = 'select * from rds_hrv_ods_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION
+#                                                                                           (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=2'
+#   
+#   print(sql2)
+#   data2 = tsda::sql_select2(dms_token, sql2)
+#   names(data2) = c(
+#     '日期',
+#     '会计年度',
+#     '会计期间',
+#     '单据编号 ',
+#     '行号',
+#     '凭证模板号',
+#     '凭证模板名称',
+#     '费用申报组织',
+#     '费用承担组织',
+#     '业务类型',
+#     '摘要',
+#     '账簿',
+#     '往来单位名称',
+#     '往来单位编码',
+#     '供应商',
+#     '供应商编码',
+#     '账户名称',
+#     '高新部门',
+#     '科目编码',
+#     '科目全名',
+#     '核算维度',
+#     '部门代码 ',
+#     '部门名称',
+#     'RD-项目（人工费用表格）',
+#     '系统项目名称',
+#     '责任中心',
+#     '重分类',
+#     '银行账号',
+#     '借方金额',
+#     '贷方金额',
+#     '结算方式',
+#     '结算号 ',
+#     '详细信息',
+#     '状态',
+#     '责任中心名称',
+#     '重分类名称',
+#     'std新行号'
+#   )
+#   res = list(`成功数据` = data1, `异常数据` = data2)
+#   # print(res)
+#   
+#   
+#   tsui::run_download_xlsx(id = 'btn_hrv_voucher_download',
+#                           data = res ,
+#                           filename = '凭证同步至ERP日志.xlsx')
+#   
+#   
+# }
 
 
 #' Title 后台处理总函数
@@ -1502,11 +1705,11 @@ HrvServer <- function(input, output, session, dms_token) {
   #凭证预览
   viewvoucher(input, output, session, dms_token)
   #预览下载
-  downloadvoucher(input, output, session, dms_token)
+  # downloadvoucher(input, output, session, dms_token)
   #生成凭证
   voucherserver(input, output, session, dms_token)
   # # 重新生成凭证
   # revoucherserver(input, output, session, dms_token)
   # 下载日志
-  downloadserver(input, output, session, dms_token)
+  # downloadserver(input, output, session, dms_token)
 }
