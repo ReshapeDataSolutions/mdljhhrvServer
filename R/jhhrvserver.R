@@ -1128,7 +1128,7 @@ viewvoucher <- function(input, output, session, dms_token) {
                             "select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
   FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
   FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
-  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
+  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
   from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input))
   and fyear='%d.0' and fmonth='%d.0'",
                             var_hr_year,
@@ -1172,7 +1172,9 @@ viewvoucher <- function(input, output, session, dms_token) {
                             '结算号 ',
                             '责任中心名称',
                             '重分类名称',
+                            'src行号',
                             'std新行号',
+                            '过程表行号',
                             '状态',
                             '详细信息'
                           )
@@ -1208,7 +1210,7 @@ downloadvoucher <- function(input, output, session, dms_token) {
   sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
   FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
   FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
-  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
+  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
   from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=2'
 
   
@@ -1264,7 +1266,9 @@ downloadvoucher <- function(input, output, session, dms_token) {
     '结算号 ',
     '责任中心名称',
     '重分类名称',
+    'src行号',
     'std新行号',
+    '过程表行号',
     '状态',
     '详细信息'
   )
@@ -1285,7 +1289,7 @@ downloadvoucher <- function(input, output, session, dms_token) {
   sql = 'select FDate,FYear,FMonth,FBillNO,FSeq,FNumber,FName,FTaxDeclarationOrg,FExpenseOrgID,FCategoryType,FNotes,FAccountBookID,
   FDealingUnitName,FDealingUnitNumber,FSupplierName,FSupplierNumber,FAccountName,FHightechDept,FSubjectNumber,FSubjectName,
   FLexitemProperty,FDeptNumber,FDeptName,FRdProject,FProjectNumber,FWorkCenterNumber,FAcctreClassNumber,FBankAccount,
-  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSeqNew,FIsdo,FMessage
+  allamountBorrow,allamountLoan,FSettleMethod,FSettleNumber,FWorkCenterName,FAcctreClassName,FSrcSeq,FStdSeq,FSeqNew,FIsdo,FMessage
   from rds_hrv_src_ds_middleTable where FBillNO in ((select FNumber from rds_hrv_src_ds_salary_input) UNION (select FNumber from rds_hrv_src_ds_socialsecurity_input)) and fisdo=0'
   
   
@@ -1325,7 +1329,9 @@ downloadvoucher <- function(input, output, session, dms_token) {
     '结算号 ',
     '责任中心名称',
     '重分类名称',
+    'src行号',
     'std新行号',
+    '过程表行号',
     '状态',
     '详细信息'
   )
