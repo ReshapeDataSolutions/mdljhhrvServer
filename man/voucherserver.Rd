@@ -2,7 +2,7 @@
 % Please edit documentation in R/jhhrvserver.R
 \name{voucherserver}
 \alias{voucherserver}
-\title{Title 生成凭证}
+\title{Title 重新上传数据}
 \usage{
 voucherserver(input, output, session, dms_token)
 }
@@ -17,10 +17,15 @@ voucherserver(input, output, session, dms_token)
 }
 \value{
 返回值
+
+返回值
 }
 \description{
-Title 生成凭证
+Title 重新上传数据
 }
 \examples{
+reuploadserver()
+Title 生成凭证
+
 voucherserver()
 }
