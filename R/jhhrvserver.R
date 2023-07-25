@@ -52,7 +52,9 @@ viewserver <- function(input, output, session, dms_token) {
                                   "text",
                                   "numeric",
                                   "date",
+                                  "text",
                                   "text"
+                                  
                                 )
                               )
                             salary_data_excel = as.data.frame(salary_data_excel)
@@ -106,6 +108,7 @@ viewserver <- function(input, output, session, dms_token) {
                                   "text",
                                   "numeric",
                                   "date",
+                                  "text",
                                   "text"
                                 )
                               )
@@ -214,6 +217,7 @@ uploadserver <- function(input, output, session, dms_token) {
                               "text",
                               "numeric",
                               "date",
+                              "text",
                               "text"
                             )
                           )
@@ -242,7 +246,8 @@ uploadserver <- function(input, output, session, dms_token) {
                           'FNumber',
                           'FSeq',
                           'FDate',
-                          'FOldDept'
+                          'FOldDept',
+                          'FNotePeriod'
                         )
                         
                         FHightechDept = ''
@@ -318,7 +323,9 @@ uploadserver <- function(input, output, session, dms_token) {
                               "text",
                               "numeric",
                               "date",
+                              "text",
                               "text"
+                              
                             )
                           )
                         names(socialsecurity_data_excel) = c(
@@ -357,7 +364,8 @@ uploadserver <- function(input, output, session, dms_token) {
                           'FNumber',
                           'FSeq',
                           'FDate',
-                          'FOldDept'
+                          'FOldDept',
+                          'FNotePeriod'
                         )
                         
                         # socialsecurity_data_excel$FHightechDept = ''
