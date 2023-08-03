@@ -1,3 +1,3 @@
 # mdljhhrvServer
 
-devtools:install_github('ReshapeData/mdljhhrvServer@main')
+devtools::install_github('ReshapeData/mdljhhrvServer@main')
