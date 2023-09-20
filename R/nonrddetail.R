@@ -38,6 +38,7 @@ nonrddetailServer <- function(input,output,session,dms_token) {
     FYear2=sprintf("%s%s",FYear ,str)
     FMonth2=sprintf("%s%s",FMonth ,str)
     jhhrvvoucherpkg::srcmiddleTable(token = token,FYear =FYear2 ,FMonth =FMonth2 ,FExpenseOrgID =FExpenseOrgID )
+    jhhrvvoucherpkg::odsmiddleTable(token = token,FYear =FYear2 ,FMonth =FMonth2 ,FExpenseOrgID =FExpenseOrgID )
     
     
     tsui::pop_notice("非研发工时相关数据已清除成功")
