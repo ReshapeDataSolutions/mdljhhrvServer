@@ -18,138 +18,146 @@ viewserver <- function(input, output, session, dms_token) {
                         {
                           # 获取文件路径
                           file_name = var_file_export_baseInfo()
-                          print(file_name)
-                          
-                          # 获取表名
-                          sheet_name = var_hr_sheet()
-                          print(sheet_name)
-                          
-                          if (sheet_name == '工资') {
+                          if(is.null(file_name)){
+                            tsui::pop_notice("请先上传文件")
+                          }else{
+                            # 获取表名
+                            sheet_name = var_hr_sheet()
                             print(sheet_name)
-                            salary_data_excel <-
-                              readxl::read_excel(
-                                file_name,
-                                sheet = '工资',
-                                col_types = c(
-                                  "text",
-                                  "text",
-                                  "text",
-                                  "text",
-                                  # "text",
-                                  "text",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "text",
-                                  "text",
-                                  "text",
-                                  "numeric",
-                                  "date",
-                                  "text",
-                                  "text"
-                                  
+                            
+                            if (sheet_name == '工资') {
+                              print(sheet_name)
+                              salary_data_excel <-
+                                readxl::read_excel(
+                                  file_name,
+                                  sheet = '工资',
+                                  col_types = c(
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    # "text",
+                                    "text",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "numeric",
+                                    "date",
+                                    "text",
+                                    "text"
+                                    
+                                  )
                                 )
-                              )
-                            salary_data_excel = as.data.frame(salary_data_excel)
-                            
-                            salary_data_excel = tsdo::na_standard(salary_data_excel)
-                            
-                            #显示数据
-                            tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = salary_data_excel)
-                            
-                            
-                          }
-                          else if (sheet_name == '社保') {
-                            #读取文件
-                            socialsecurity_data_excel <-
-                              readxl::read_excel(
-                                file_name,
-                                sheet = '社保',
-                                col_types = c(
-                                  "text",
-                                  "text",
-                                  "text",
-                                  # "text",
-                                  "text",
-                                  "text",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "numeric",
-                                  "text",
-                                  "text",
-                                  "text",
-                                  "numeric",
-                                  "date",
-                                  "text",
-                                  "text"
+                              salary_data_excel = as.data.frame(salary_data_excel)
+                              
+                              salary_data_excel = tsdo::na_standard(salary_data_excel)
+                              
+                              #显示数据
+                              tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = salary_data_excel)
+                              
+                              
+                            }
+                            else if (sheet_name == '社保') {
+                              #读取文件
+                              socialsecurity_data_excel <-
+                                readxl::read_excel(
+                                  file_name,
+                                  sheet = '社保',
+                                  col_types = c(
+                                    "text",
+                                    "text",
+                                    "text",
+                                    # "text",
+                                    "text",
+                                    "text",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "numeric",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "numeric",
+                                    "date",
+                                    "text",
+                                    "text"
+                                  )
                                 )
-                              )
+                              
+                              socialsecurity_data_excel = as.data.frame(socialsecurity_data_excel)
+                              socialsecurity_data_excel = tsdo::na_standard(socialsecurity_data_excel)
+                              
+                              #显示数据
+                              tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = socialsecurity_data_excel)
+                              
+                              
+                            }
+                            else if (sheet_name == '工时') {
+                              #读取文件
+                              redetail <-
+                                readxl::read_excel(file_name, sheet = '工时')
+                              
+                              ncols = ncol(redetail)
+                              c1 = c("numeric", 
+                                     "text", "numeric", "numeric", "text", 
+                                     "text", "text", "text", "text", "numeric", 
+                                     "numeric", "numeric", "text")
+                              
+                              c2<-rep("numeric",times= (ncols - 13))
+                              col_types = c(c1, c2)
+                              
+                              redetail <- readxl::read_excel(file_name, 
+                                                             sheet = "工时", col_types = col_types)
+                              
+                              
+                              redetail = as.data.frame(redetail)
+                              redetail = tsdo::na_standard(redetail)
+                              
+                              #显示数据
+                              tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = redetail)
+                              print(redetail)
+                              
+                            }
+                            else {
+                              print('请查看上传数据的模版，或联系棱星顾问')
+                            }
                             
-                            socialsecurity_data_excel = as.data.frame(socialsecurity_data_excel)
-                            socialsecurity_data_excel = tsdo::na_standard(socialsecurity_data_excel)
                             
-                            #显示数据
-                            tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = socialsecurity_data_excel)
                             
                             
                           }
-                          else if (sheet_name == '工时') {
-                            #读取文件
-                            redetail <-
-                              readxl::read_excel(file_name, sheet = '工时')
-                            
-                            ncols = ncol(redetail)
-                            c1 = c("numeric", 
-                                   "text", "numeric", "numeric", "text", 
-                                   "text", "text", "text", "text", "numeric", 
-                                   "numeric", "numeric", "text")
-                            
-                            c2<-rep("numeric",times= (ncols - 13))
-                            col_types = c(c1, c2)
-                            
-                            redetail <- readxl::read_excel(file_name, 
-                                                 sheet = "工时", col_types = col_types)
-                            
-                            
-                            redetail = as.data.frame(redetail)
-                            redetail = tsdo::na_standard(redetail)
-                            
-                            #显示数据
-                            tsui::run_dataTable2(id = 'btn_hrv_voucher_view_data', data = redetail)
-                            print(redetail)
-                            
-                          }
-                          else {
-                            print('请查看上传数据的模版，或联系棱星顾问')
-                          }
+                          
+                          
                           
                         })
     
@@ -175,11 +183,21 @@ uploadserver <- function(input, output, session, dms_token) {
   shiny::observeEvent(input$btn_hrv_voucher_upload,
                       {
                         file_name = var_file_export_baseInfo()
-                        mdljhhrvPkg::ds_voucher_upload(dms_token = dms_token,
-                                                       file_name=file_name)
+                        
+                        if(is.null(file_name)){
+                          tsui::pop_notice("请先上传文件")
+                        }else{
+                          mdljhhrvPkg::ds_voucher_upload(dms_token = dms_token,
+                                                         file_name=file_name)
+                          
+                          
+                          tsui::pop_notice('数据上传成功')
+                          
+                          
+                          
+                        }
                         
                         
-                        tsui::pop_notice('数据上传成功')
                         
                         
                       })
